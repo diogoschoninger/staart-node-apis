@@ -1,0 +1,14 @@
+{
+	"name": "api-nativa",
+	"version": "1.0.0",
+	"author": "Diogo Schoninger (schoninger.diogo@gmail.com",
+	"license": "ISC",
+	"main": "src/index.js",
+	"scripts": {
+		"start": "node src/index.js",
+		"dev": "nodemon"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.21"
+	}
+}
