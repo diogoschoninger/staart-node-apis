@@ -4,15 +4,15 @@ import errorHandler from './middlewares/error.js'
 import users from './routes.js'
 
 const app = express()
+const router = express.Router()
 
-app.use(express.json())
+router.use(express.json())
+router.use('/users', users)
+router.use(errorHandler())
 
-app.use('/users', users)
+app.use('/api/v1', router)
 
-app.use(errorHandler())
-
-app.use('*', (_req, res) => {
-  res.status(404).send({ message: "Invalid endpoint" })
-})
+app.use('*', (_req, res) =>
+  res.status(404).send({ message: "Invalid endpoint" }))
 
 app.listen(3333, () => console.log('Server started.'))

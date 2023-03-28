@@ -1,3 +1,4 @@
+import NotFoundError from '../utils/errors.js'
 import wait from '../utils/wait.js'
 
 const InMemoryUsersRepository = () => {
@@ -22,7 +23,7 @@ const InMemoryUsersRepository = () => {
   const get = async id => {
     await wait(500)
 
-    return users[id]
+    return users[id] ?? Promise.reject(new NotFoundError({ resourceName: 'user', resourceIdentifier: id }))
   }
 
   const update = async user => {

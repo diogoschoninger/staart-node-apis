@@ -25,10 +25,7 @@ const user = {
   get: asyncErrorHandler(async (req, res) => {
     const id = parseInt(req.params.id)
   
-    const registered = await repository.get(id)
-  
-    if (!registered)
-      return res.status(404).send(notFound)
+    const user = await repository.get(id)
   
     res.status(200).send(user)
   }),
@@ -38,10 +35,7 @@ const user = {
   
     const body = req.body
   
-    const registered = await repository.get(id)
-  
-    if (!registered)
-      return res.status(404).send(notFound)
+    await repository.get(id)
   
     const user = { ...body, id }
   
@@ -53,10 +47,7 @@ const user = {
   delete: asyncErrorHandler(async (req, res) => {
     const id = parseInt(req.params.id)
   
-    const registered = await repository.get(id)
-  
-    if (!registered)
-      return res.status(404).send(notFound)
+    await repository.get(id)
   
     await repository.del(id)
     
