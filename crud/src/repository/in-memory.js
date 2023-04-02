@@ -1,4 +1,4 @@
-import NotFoundError from '../utils/errors.js'
+import { NotFoundError } from '../utils/errors.js'
 import wait from '../utils/wait.js'
 
 const InMemoryUsersRepository = () => {

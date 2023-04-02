@@ -1,4 +1,7 @@
-import NotFoundError from "../utils/errors.js"
+import { NotFoundError, ValidationError } from '../utils/errors.js'
+
+const validationsToCause = validations =>
+  validations.map(({ message, context: { label }}) => ({ message, field: label }))
 
 const responseMappers = {
   [NotFoundError.name]: error => ({
@@ -8,6 +11,16 @@ const responseMappers = {
       error: NotFoundError.name,
       message: error.message,
       cause: []
+    }
+  }),
+
+  [ValidationError.name]: error => ({
+    status: 400,
+    body: {
+      statusCode: 400,
+      error: ValidationError.name,
+      message: error.message,
+      cause: validationsToCause(error.validations ?? [])
     }
   }),
 
@@ -22,8 +35,8 @@ const responseMappers = {
   })
 }
 
-const errorHandler = (log = console.error) => (error, _req, res, _next) => {
-  log(error)
+const errorHandler = () => (error, _req, res, _next) => {
+  console.error(error)
 
   const mapper = responseMappers[error.name] ?? responseMappers.default
   const { status, body } = mapper(error)

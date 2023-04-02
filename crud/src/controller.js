@@ -3,10 +3,8 @@ import UsersRepository from './repository/in-memory.js'
 
 const repository = UsersRepository()
 
-const notFound = { message: 'Resource not found.' }
-
 const user = {
-  new: asyncErrorHandler(async (req, res) => {
+  create: asyncErrorHandler(async (req, res) => {
     const user = req.body
 
     const inserted = await repository.insert(user)
@@ -35,9 +33,9 @@ const user = {
   
     const body = req.body
   
-    await repository.get(id)
+    const registered = await repository.get(id)
   
-    const user = { ...body, id }
+    const user = { ...registered, ...body, id }
   
     const updated = await repository.update(user)
   

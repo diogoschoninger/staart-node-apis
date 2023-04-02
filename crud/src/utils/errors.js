@@ -13,4 +13,14 @@ class NotFoundError extends DomainError {
   }
 }
 
-export default NotFoundError
+class ValidationError extends DomainError {
+  constructor({ message = 'Invalid parameters', validations }) {
+    super(message)
+    this.validations = validations
+  }
+}
+
+export {
+  NotFoundError,
+  ValidationError
+}
