@@ -4,8 +4,9 @@ export default {
   create: {
     body: Joi.object({
       username: Joi.string().email().required(),
-      name: Joi.string().regex(/^[A-Za-z]+(\s?[A-Za-z])*$/).required(),
-      password: Joi.string().min(5).max(40).required()
+      password: Joi.string().min(5).max(40).required(),
+      firstName: Joi.string().regex(/^[A-Za-z]+$/).required(),
+      lastName: Joi.string().regex(/^[A-Za-z]+$/).required(),
     })
   },
   
@@ -16,13 +17,14 @@ export default {
   },
   
   update: {
-    body: Joi.object({
-      name: Joi.string().regex(/^[A-Za-z]+(\s?[A-Za-z])*$/).required(),
-      password: Joi.string().min(5).max(40).required()
-    }).or('name', 'password'),
     params: {
       id: Joi.number().required()
-    }
+    },
+    body: Joi.object({
+      password: Joi.string().min(5).max(40).required(),
+      firstName: Joi.string().regex(/^[A-Za-z]+$/).required(),
+      lastName: Joi.string().regex(/^[A-Za-z]+$/).required(),
+    }).or('password', 'firstName', 'lastName')
   },
   
   delete: {

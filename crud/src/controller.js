@@ -1,5 +1,5 @@
 import asyncErrorHandler from './middlewares/async-error.js'
-import UsersRepository from './repository/in-memory.js'
+import UsersRepository from './repository/sql-repository.js'
 
 const repository = UsersRepository()
 

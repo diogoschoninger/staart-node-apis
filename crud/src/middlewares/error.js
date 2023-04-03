@@ -1,4 +1,4 @@
-import { NotFoundError, ValidationError } from '../utils/errors.js'
+import { ConflictError, NotFoundError, ValidationError } from '../utils/errors.js'
 
 const validationsToCause = validations =>
   validations.map(({ message, context: { label }}) => ({ message, field: label }))
@@ -21,6 +21,16 @@ const responseMappers = {
       error: ValidationError.name,
       message: error.message,
       cause: validationsToCause(error.validations ?? [])
+    }
+  }),
+
+  [ConflictError.name]: error => ({
+    status: 409,
+    body: {
+      statusCode: 409,
+      error: ConflictError.name,
+      message: error.message,
+      cause: []
     }
   }),
 

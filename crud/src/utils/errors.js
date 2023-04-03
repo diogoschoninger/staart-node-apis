@@ -20,7 +20,10 @@ class ValidationError extends DomainError {
   }
 }
 
+class ConflictError extends DomainError {}
+
 export {
   NotFoundError,
-  ValidationError
+  ValidationError,
+  ConflictError
 }
