@@ -22,8 +22,8 @@ export default {
     },
     body: Joi.object({
       password: Joi.string().min(5).max(40).required(),
-      firstName: Joi.string().regex(/^[A-Za-z]+$/).required(),
-      lastName: Joi.string().regex(/^[A-Za-z]+$/).required(),
+      firstName: Joi.string().regex(/^[A-Za-z]+$/),
+      lastName: Joi.string().regex(/^[A-Za-z]+$/),
     }).or('password', 'firstName', 'lastName')
   },
   
